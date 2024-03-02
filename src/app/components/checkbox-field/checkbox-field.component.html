@@ -1,0 +1,5 @@
+
+
+    <label *ngFor="let option of field.options" class="css-options">
+      <input type="checkbox" [value]="option.value" [formControl]="control">{{ option.label }}
+    </label>

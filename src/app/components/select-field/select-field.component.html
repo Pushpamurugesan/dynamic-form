@@ -1,0 +1,6 @@
+
+
+    <select [formControl]="control"  class="form-control">
+      <option value="" disabled selected>Select {{field.label}}</option>
+      <option *ngFor="let option of field.options" [value]="option.value" >{{ option.label }}</option>
+    </select>

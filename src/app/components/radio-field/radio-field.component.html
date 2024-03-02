@@ -1,0 +1,5 @@
+
+
+    <label *ngFor="let option of options">
+      <input  class="css-options" [placeholder]="placeholder" type="radio" [value]="option.value" [formControl]="control">{{ option.label }}
+    </label>

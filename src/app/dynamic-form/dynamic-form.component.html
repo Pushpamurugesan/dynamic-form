@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="css-form">
+      <h2 class="text-center">{{ formData.title }}</h2>
+      <div *ngFor="let section of formData.formFields">
+        <h4>{{ section.label }}</h4>
+        <div *ngFor="let field of section.fields">
+          <div [ngSwitch]="field.type">
+            <!-- Start text field component -->
+            <div *ngSwitchCase="'text'" class="d-flex">
+              <label class="css-label">{{ field.label }}</label>
+              <app-text-field [control]="form.get(field.name)" [placeholder]="field.placeholder" class="css-component">
+              </app-text-field>
+            </div>
+            <!-- end text field component -->
+
+            <!-- Start date field component -->
+            <div *ngSwitchCase="'date'" class="d-flex">
+              <label class="css-label">{{ field.label }}</label>
+              <app-date-field [control]="form.get(field.name)" [placeholder]="field.placeholder" class="css-component">
+              </app-date-field>
+            </div>
+            <!-- end date field component -->
+
+            <!-- Start radio field component -->
+            <div *ngSwitchCase="'radio'" class="d-flex" style="height: 40px;">
+              <label class="css-label">{{ field.label }}</label>
+              <app-radio-field *ngSwitchCase="'radio'" [control]="form.get(field.name)" [options]="field.options"
+                [placeholder]="field.placeholder" class="css-component"></app-radio-field>
+            </div>
+            <!-- End radio field component-->
+
+            <!-- Start checkbox field component-->
+            <div *ngSwitchCase="'checkbox'" class="d-flex">
+              <label class="css-label">{{ field.label }}</label>
+              <app-checkbox-field [control]="form.get(field.name)" [field]="field" class="css-component">
+              </app-checkbox-field>
+            </div>
+            <!-- End checkbox field component-->
+
+            <!-- Start Select field component-->
+            <div *ngSwitchCase="'select'" class="d-flex">
+              <label class="css-label">{{ field.label }}</label>
+              <app-select-field [control]="form.get(field.name)" [field]="field" class="css-component">
+              </app-select-field>
+            </div>
+            <!-- End select field component-->
+          </div>
+          <div *ngIf="!form.get(field.name)!.valid && form.get(field.name)!.touched" class="error text-center">
+            <span *ngIf="form.get(field.name)!.errors?.['required']">This field is required</span>
+            <span *ngIf="form.get(field.name)!.errors?.['pattern']">Invalid input</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <h5 [style.color]="form.valid ? 'green' : 'red'">{{form.valid ? 'Form is validated' : errorMessage}}</h5>
+        <button type="submit" [style.background]="form.valid ? 'green' : '#ccc'"
+          class="btn btn-primary ">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+</div>
